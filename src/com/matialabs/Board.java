@@ -2,7 +2,7 @@ package com.matialabs;
 
 public class Board
 {
-    public static void printBoard(int arr[][])
+    public static void printBoard(char arr[][])
     {
         for (int i = 0; i < arr.length; i++)
         {
@@ -14,71 +14,93 @@ public class Board
         }
     }
 
-    public static boolean win(char arr[][])
+    public static char[][] update(char arr[][], int row, int col, char symbol)
+    {
+        arr[row][col] = symbol;
+        return arr;
+    }
+
+    public static boolean win(char arr[][], char symbol)
     {
 
-        if(row(arr,0)||row(arr,1)||row(arr,2)||col(arr, 0)||col(arr, 1)||col(arr, 2)||mainSlant(arr)||secondSlant(arr))
+       if(row(arr,0, symbol)||row(arr,1, symbol)||row(arr,2,symbol)||col(arr, 0, symbol)||col(arr, 1, symbol)||col(arr, 2, symbol)||mainSlant(arr, symbol)||secondSlant(arr, symbol))
         {
             return true;
         }
+
 
         return false;
 
     }
 
-
-    private static boolean row(char arr[][], int row)
+    public static boolean tie(char board[][])
     {
-        int flag = 0; // if flag is two, we are ok (row -1);
-        for (int j = 0; j < arr[row].length - 1; j++)
+        for(int i = 0; i<board.length; i++)
         {
-            if (arr[row][j] == arr[row][j+1])
+            for(int j=0; j<board[i].length; j++)
             {
-                flag++;
+                if(board[i][j]=='-')
+                {
+                    return false;
+                }
+
             }
         }
-        return flag==arr[row].length-1? true: false;
+        return true;
+    }
+
+
+    private static boolean row(char arr[][], int row, char symbol)
+    {
+        for (int j = 0; j < arr[row].length; j++)
+        {
+            if (arr[row][j] != symbol)
+            {
+                return false;
+            }
+        }
+        return true;
 
     }
 
-    private static boolean col(char arr[][], int col)
+    public static boolean col(char arr[][], int col, char symbol)
     {
-        int flag = 0; // if flag is two, we are ok (row -1);
-        for (int j = 0; j < arr.length - 1; j++)
+        // int flag = 0; // if flag is two, we are ok (row -1);
+        for (int j = 0; j < arr.length; j++)
         {
-            if (arr[j][col] == arr[j+1][col])
+            if (arr[j][col] != symbol)
             {
-                flag++;
+                return false;
             }
         }
-        return flag==arr.length-1? true: false;
+        return true;
 
     }
 
-    private static boolean mainSlant(char[][] arr)
+    private static boolean mainSlant(char[][] arr, char symbol)
     {
         int flag = 0;
-        for(int i = 0; i<arr.length-1; i++)
+        for (int i = 0; i < arr.length ; i++)
         {
-            if(arr[i][i]==arr[i+1][i+1])
+            if (arr[i][i] != symbol)
             {
-                flag++;
+                return false;
             }
         }
-        return flag==arr.length-1? true: false;
+        return true;
 
     }
-    private static boolean secondSlant(char[][] arr)
+
+    private static boolean secondSlant(char[][] arr, char symbol)
     {
         int flag = 0;
-        for(int i = 0; i<arr.length-1; i++)
+        for (int i = 0; i < arr.length - 1; i++)
         {
-            if(arr[i][arr.length-i-1]==arr[i+1][arr.length-i-1])
+            if (arr[i][arr.length - i - 1] != symbol)
             {
-                flag++;
+                return false;
             }
         }
-        return flag==arr.length-1? true: false;
-
+        return true;
     }
 }
