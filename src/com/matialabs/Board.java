@@ -8,9 +8,9 @@ public class Board
         {
             for (int j = 0; j < arr[i].length; j++)
             {
-                System.out.print(arr[i][j] + "    ");
+                System.out.print("         "+arr[i][j] + "       ");
             }
-            System.out.println();
+            System.out.println("\n\n\n\n");
         }
     }
 
@@ -33,21 +33,6 @@ public class Board
 
     }
 
-    public static boolean tie(char board[][])
-    {
-        for(int i = 0; i<board.length; i++)
-        {
-            for(int j=0; j<board[i].length; j++)
-            {
-                if(board[i][j]=='-')
-                {
-                    return false;
-                }
-
-            }
-        }
-        return true;
-    }
 
 
     private static boolean row(char arr[][], int row, char symbol)
