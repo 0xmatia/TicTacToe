@@ -27,8 +27,6 @@ public class Board
         {
             return true;
         }
-
-
         return false;
 
     }
@@ -64,7 +62,6 @@ public class Board
 
     private static boolean mainSlant(char[][] arr, char symbol)
     {
-        int flag = 0;
         for (int i = 0; i < arr.length ; i++)
         {
             if (arr[i][i] != symbol)
@@ -78,8 +75,7 @@ public class Board
 
     private static boolean secondSlant(char[][] arr, char symbol)
     {
-        int flag = 0;
-        for (int i = 0; i < arr.length - 1; i++)
+        for (int i = 0; i < arr.length; i++)
         {
             if (arr[i][arr.length - i - 1] != symbol)
             {
