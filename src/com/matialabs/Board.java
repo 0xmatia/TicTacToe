@@ -2,28 +2,51 @@ package com.matialabs;
 
 public class Board
 {
-    public static void printBoard(char arr[][])
+    private static char board[][] = {{'-', '-', '-'},
+                                    {'-', '-', '-'},
+                                    {'-', '-', '-'}};
+
+
+    /**
+     * This function prints the board array
+     */
+    public static void printBoard()
     {
-        for (int i = 0; i < arr.length; i++)
+        for (int i = 0; i <board.length; i++)
         {
-            for (int j = 0; j < arr[i].length; j++)
+            for (int j = 0; j < board[i].length; j++)
             {
-                System.out.print("         "+arr[i][j] + "       ");
+                System.out.print("         "+board[i][j] + "       ");
             }
             System.out.println("\n\n\n\n");
         }
     }
 
-    public static char[][] update(char arr[][], int row, int col, char symbol)
+    /**
+     * This function update a certain cell with given symbol
+     * @param row
+     *      the row parameter 1-3
+     * @param col
+     *      the col parameter 1-3
+     * @param symbol
+     *      X or O
+     */
+    public static void update(int row, int col, char symbol)
     {
-        arr[row][col] = symbol;
-        return arr;
+        board[row][col] = symbol;
     }
 
-    public static boolean win(char arr[][], char symbol)
+    /**
+     * Checks if symbol has won (col -> row -> slants)
+     * @param symbol
+     *      X or O - checks to see if symbol won
+     * @return
+     *      true for win, false for no win
+     */
+    public static boolean win(char symbol)
     {
 
-       if(row(arr,0, symbol)||row(arr,1, symbol)||row(arr,2,symbol)||col(arr, 0, symbol)||col(arr, 1, symbol)||col(arr, 2, symbol)||mainSlant(arr, symbol)||secondSlant(arr, symbol))
+       if(row(0, symbol)||row(1, symbol)||row(2,symbol)||col(0, symbol)||col(1, symbol)||col(2, symbol)||mainSlant(symbol)||secondSlant(symbol))
         {
             return true;
         }
@@ -32,12 +55,20 @@ public class Board
     }
 
 
-
-    private static boolean row(char arr[][], int row, char symbol)
+    /**
+     * Checks for row win
+     * @param row
+     *      the row to check for three in a row
+     * @param symbol
+     *      the symbol to look for three in a row
+     * @return
+     *      Return true if three in a *row* is found
+     */
+    private static boolean row(int row, char symbol)
     {
-        for (int j = 0; j < arr[row].length; j++)
+        for (int j = 0; j < board[row].length; j++)
         {
-            if (arr[row][j] != symbol)
+            if (board[row][j] != symbol)
             {
                 return false;
             }
@@ -46,12 +77,30 @@ public class Board
 
     }
 
-    public static boolean col(char arr[][], int col, char symbol)
+    /**
+     * Retruns the board
+     * @return
+     *      returns the board
+     */
+    public static char[][] getBoard()
     {
-        // int flag = 0; // if flag is two, we are ok (row -1);
-        for (int j = 0; j < arr.length; j++)
+        return board;
+    }
+
+    /**
+     * Checks for col win
+     * @param col
+     *      the row to check for three in a col
+     * @param symbol
+     *      the symbol to look for three in a col
+     * @return
+     *      Return true if three in a *col* is found
+     */
+    public static boolean col(int col, char symbol)
+    {
+        for (int j = 0; j < board.length; j++)
         {
-            if (arr[j][col] != symbol)
+            if (board[j][col] != symbol)
             {
                 return false;
             }
@@ -59,12 +108,18 @@ public class Board
         return true;
 
     }
-
-    private static boolean mainSlant(char[][] arr, char symbol)
+    /**
+     * Checks for main Slant win
+     * @param symbol
+     *      the symbol to look for three in a slant
+     * @return
+     *      Return true if three in a *slant* is found
+     */
+    private static boolean mainSlant( char symbol)
     {
-        for (int i = 0; i < arr.length ; i++)
+        for (int i = 0; i < board.length ; i++)
         {
-            if (arr[i][i] != symbol)
+            if (board[i][i] != symbol)
             {
                 return false;
             }
@@ -72,12 +127,18 @@ public class Board
         return true;
 
     }
-
-    private static boolean secondSlant(char[][] arr, char symbol)
+    /**
+     * Checks for second slant win
+     * @param symbol
+     *      the symbol to look for the three in a row
+     * @return
+     *      Return true if three in a *second slant* is found
+     */
+    private static boolean secondSlant(char symbol)
     {
-        for (int i = 0; i < arr.length; i++)
+        for (int i = 0; i < board.length; i++)
         {
-            if (arr[i][arr.length - i - 1] != symbol)
+            if (board[i][board.length - i - 1] != symbol)
             {
                 return false;
             }
